@@ -40,12 +40,6 @@ Once you run your code, these bodies will position themselves in space according
 
 ## Setup
 
-As always, make sure to source setup_project2.sh  before trying to invoke any ROS commands (catkin_make, roscd, etc.). This will also start a roscore for your session. Please do not start your own roscore.
-
-As mentioned above, after you have sourced setup_project2.sh simply run your node rosrun project2_solution solution.py. You can then click the 'Connect' button. You will see an interactive visualization of the transforms in the assignment (if you're curious, this was created using ROS Markers).
-
-## Grading
-
-Similarly to Project 1, your code will automatically be graded when you submit. After a short wait there will be a 'Submission Report' available for you under the 'Details' tab.
-
-Each of the three transforms that you need to publish is worth 5 points. For each transform, you will get the points only if the transform you publish is correct in its entirety (within numerical precision) - no partial credit if only the rotation part is correct, or only the translation, etc. 
+- first make a roscore
+- execute maker_publisher.cpp
+- execute solutionE2.py
