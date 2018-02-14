@@ -1,5 +1,5 @@
-#Project 2
-##Description
+# Project 2
+## Description
 
 This project will introduce you to 'tf', the ROS framework for handling transforms. Please make sure you have read the entry on this package on the ROS wiki. In this project we consider a ROS ecosystem, which consists of a robot with a camera mounted on it as well as an object. To describe the poses of all these items, we define the following coordinate frames:
 
@@ -23,7 +23,7 @@ In the provided solution.py write a ROS node that publishes the following transf
     The transform from the 'base' coordinate frame to the 'robot' coordinate frame 
     The transform from the 'robot' coordinate frame to the 'camera' coordinate frame
 
-##Additional Information
+## Additional Information
 
 You will probably want to make use of the transformations.py library. The documentation for using that is in the library itself; you can reference the version used with ROS online on Github (be careful - other versions of this file exist on the Internet, so if you just Google for it you might get the wrong one).
 
@@ -38,13 +38,13 @@ This assignment also includes some visual feedback. Once you have sourced setup_
 Once you run your code, these bodies will position themselves in space according to the transforms your code is publishing. The cylinder denotes the object, the cube and arrow the robot and camera respectively. If your code works correctly, you should see the arrow point out of the cube directly at the cylinder. Here is an example of the correct output (note that the colored axes show you the location of the base coordinate frame with the usual convention: x-red, y-green, z-blue):
 ![alt text](http://roam.me.columbia.edu/files/seasroamlab/imagecache/103x_P2_1.png)
 
-##Setup
+## Setup
 
 As always, make sure to source setup_project2.sh  before trying to invoke any ROS commands (catkin_make, roscd, etc.). This will also start a roscore for your session. Please do not start your own roscore.
 
 As mentioned above, after you have sourced setup_project2.sh simply run your node rosrun project2_solution solution.py. You can then click the 'Connect' button. You will see an interactive visualization of the transforms in the assignment (if you're curious, this was created using ROS Markers).
 
-##Grading
+## Grading
 
 Similarly to Project 1, your code will automatically be graded when you submit. After a short wait there will be a 'Submission Report' available for you under the 'Details' tab.
 
