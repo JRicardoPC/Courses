@@ -16,14 +16,14 @@ This is the function that performs the main forward kinematics computation. It a
 
 - link_names: a list with all the names of the robot's links, ordered from proximal to distal. These are also the names of the link's respective coordinate frame. In other words, the transform from the world to link i should be published with world_link as the parent frame and link_names[i] as the child frame.    
 - joints: a list of all the joints of the robot, in the same order as the links listed above. Each entry in this list is an object which contains the following fields:
-··*joint.origin.xyz: the translation from the frame of the previous joint to this one.
-··*joint.origin.rpy: the rotation from the frame of the previous joint to this one, in ROLL-PITCH-YAW XYZ convention.
-··*joint.type: either 'fixed' or 'revolute'. A fixed joint does not move; it is meant to contain a static transform. 
-··*joint.name: the name of the current joint in the robot description
-··*joint.axis: (only if type is 'revolute') the axis of rotation of the joint
+  - joint.origin.xyz: the translation from the frame of the previous joint to this one.
+  - joint.origin.rpy: the rotation from the frame of the previous joint to this one, in ROLL-PITCH-YAW XYZ convention.
+  - joint.type: either 'fixed' or 'revolute'. A fixed joint does not move; it is meant to contain a static transform. 
+  - joint.name: the name of the current joint in the robot description
+  - joint.axis: (only if type is 'revolute') the axis of rotation of the joint
 - joint_values contains information about the current joint values in the robot. It contains information about **all** the joints, and **the ordering can vary**, so we must find the relevant value  for a particular joint you are considering. We can use the following fields:
-··*joint_values.name: a list of the names of all the joints in the robot;
-··*joint_values.position: a list of the current values of all the joints in the robot, in the same order as the names in the list above. To find the value of the joint we care about, we must find its name in the name list, then take the value found at the same index in the position list.
+  - joint_values.name: a list of the names of all the joints in the robot;
+  - joint_values.position: a list of the current values of all the joints in the robot, in the same order as the names in the list above. To find the value of the joint we care about, we must find its name in the name list, then take the value found at the same index in the position list.
 
 The function must return one tf message. The transforms field of this message must list **all** the transforms from the world coordinate frame to the links of the robot. In other words, when you are done, all_transforms.transforms must contain a list in which you must place all the transforms from the world_link coordinate frame to each of the coordinate frames listed in link_names. You can use the convert_to_message function (defined above) for a convenient way to create a tf message from a transformation matrix.
 
