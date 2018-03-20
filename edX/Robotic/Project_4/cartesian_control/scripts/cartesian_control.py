@@ -28,28 +28,28 @@ def cartesian_control(joint_transforms, b_T_ee_current, b_T_ee_desired,
     num_joints = len(joint_transforms)
     dq = numpy.zeros(num_joints)
     #-------------------- Fill in your code here ---------------------------
-    aux = numpy.zeros((6,num_joints))
-    aux1 = numpy.zeros(6)
+    J = numpy.zeros((6,num_joints))
+    eeVee = numpy.zeros(6)
 
-    aux2 = numpy.dot(numpy.linalg.inv(b_T_ee_current),b_T_ee_desired)
+    TtoDesired = numpy.dot(numpy.linalg.inv(b_T_ee_current),b_T_ee_desired)
 
-    angle, axis = rotation_from_matrix(aux2)
+    angle, axis = rotation_from_matrix(TtoDesired)
     ## in base frame
-    deltaP = aux2[:3,3]
+    deltaP = TtoDesired[:3,3]
     deltaTheta = numpy.dot(axis,angle)
 
     pDot = deltaP*1
     thetaDot = deltaTheta*1
 
-
-    aux3 = aux2[:3,:3]
+    #ee_T_b = numpy.linalg.inv(b_T_ee_current)
+    eeRb = TtoDesired[:3,:3]
     
-    aux1[:3] = numpy.dot(aux3,pDot)
-    aux1[3:] = numpy.dot(aux3,thetaDot)
+    eeVee[:3] = numpy.dot(eeRb,pDot)
+    eeVee[3:] = numpy.dot(eeRb,thetaDot)
     
-    for x in range(num_joints):
-        aux[:,x] = adjoint_matrix(numpy.dot(numpy.linalg.inv(b_T_ee_current),joint_transforms[x]))[:,5]
-	dq = numpy.dot(numpy.linalg.pinv(aux,0.01),aux1)
+    for i in range(num_joints):
+        J[:,i] = adjoint_matrix(numpy.dot(numpy.linalg.inv(b_T_ee_current),joint_transforms[i]))[:,5]
+    dq = numpy.dot(numpy.linalg.pinv(J,0.01),eeVee)
     #----------------------------------------------------------------------
     return dq
     
@@ -63,6 +63,17 @@ def convert_from_message(t):
                                                 t.rotation.w))
     T = numpy.dot(trans,rot)
     return T
+
+def adjoint_matrix(i_T_j):
+
+    i_p_j = numpy.linalg.inv(i_T_j)[:3, 3]
+    i_R_j = i_T_j[:3, :3]
+    Ad = numpy.zeros((6,6))
+    Ad[:3,:3] = i_R_j
+    Ad[3:,3:] = i_R_j
+    Ad[:3,3:] = -numpy.dot(i_R_j,S_matrix(i_p_j))
+
+    return Ad
 
 # Returns the angle-axis representation of the rotation contained in the input matrix
 # Use like this:
